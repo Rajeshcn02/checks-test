@@ -1,15 +1,17 @@
-name: CodeNotary
+name: CI
 
-on: [push]
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, edited, synchronize]
 
 jobs:
-  check:
-
+  check-for-cc:
     runs-on: ubuntu-latest
-    
     steps:
-     - name: Checkout
-       uses: actions/checkout@master
-     
-     - name: Verify
-       uses: vchain-us/verify-action@master
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: check-for-cc
+        id: check-for-cc
+        uses: agenthunt/conventional-commit-checker-action@v1.0.0
